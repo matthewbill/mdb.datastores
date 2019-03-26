@@ -64,6 +64,30 @@ class SqsWrapper {
       });
     });
   }
+
+  /**
+   * Deletes a message from SQS.
+   * @param {string} options.queueUrl The SQS queue url.
+   * @param {string} options.receiptHandle The receiptHandle of the message to delete
+   * @returns {Promise} Promise to delete a mesage from SQS.
+   * @memberof SqsWrapper
+   */
+  deleteMessage(options) {
+    const self = this;
+    return new Promise((resolve, reject) => {
+      const params = {
+        QueueUrl: options.queueUrl,
+        ReceiptHandle: options.receiptHandle,
+      };
+      self.sqs.deleteMessage(params, (err, data) => {
+        if (err) {
+          self.logger.error(err, err.stack);
+          reject(err);
+        }
+        resolve(data);
+      });
+    });
+  }
 }
 
 module.exports = SqsWrapper;
