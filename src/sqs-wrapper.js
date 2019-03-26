@@ -27,12 +27,12 @@ class SqsWrapper {
   sendMessage(options) {
     const self = this;
     return new Promise((resolve, reject) => {
-      var params = {
+      const params = {
         MessageBody: options.messageBody,
         QueueUrl: options.queueUrl,
         DelaySeconds: 0,
       };
-      self.sqs.sendMessage(params, function(err, data) {
+      self.sqs.sendMessage(params, (err, data) => {
         if (err) {
           self.logger.error(err, err.stack);
           reject(err);
@@ -53,9 +53,9 @@ class SqsWrapper {
     return new Promise((resolve, reject) => {
       const params = {
         QueueUrl: options.queueUrl,
-        WaitTimeSeconds: 20
+        WaitTimeSeconds: 20,
       };
-      self.sqs.receiveMessage(params, function(err, data) {
+      self.sqs.receiveMessage(params, (err, data) => {
         if (err) {
           self.logger.error(err, err.stack);
           reject(err);
