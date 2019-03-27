@@ -50,9 +50,9 @@ class SqsWrapper {
    */
   receiveMessage(options) {
     const self = this;
-    const delay = 20;
-    if (options.delay) {
-      delay = options.delay;
+    let { delay } = options;
+    if (!delay) {
+      delay = 20;
     }
     return new Promise((resolve, reject) => {
       const params = {
