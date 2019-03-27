@@ -50,10 +50,14 @@ class SqsWrapper {
    */
   receiveMessage(options) {
     const self = this;
+    const delay = 20;
+    if (options.delay) {
+      delay = options.delay;
+    }
     return new Promise((resolve, reject) => {
       const params = {
         QueueUrl: options.queueUrl,
-        WaitTimeSeconds: 20,
+        WaitTimeSeconds: delay,
       };
       self.sqs.receiveMessage(params, (err, data) => {
         if (err) {
